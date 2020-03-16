@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+<template id="report_profit_saledetails">
+    <t t-call="web.html_container">
+    <t t-call="web.internal_layout">
+        <div class="page">
+
+            <div class="text-center">
+                <h2>Farhan Perfumes Sales Profit Report</h2>
+                <strong>Branches: <t t-esc='branches'/></strong>
+                <br/>
+                <t t-esc="date_start" t-options="{'widget': 'datetime'}"/> - <t t-esc="date_stop" t-options="{'widget': 'datetime'}"/>
+            </div>
+
+            <!-- Order lines -->
+            <h3>Products</h3>
+            <table  class="table table-sm">
+                <thead><tr>
+                    <th>SL</th>
+                    <th>Barcode</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>VAT</th>
+                    <th>Amt Incl VAT</th>
+                    <th>VAT Amt</th>
+                    <th>Amt Excl VAT</th>
+                    <th>Cost</th>
+                    <th>Profit</th>
+                </tr></thead>
+                <tbody>
+
+                <t t-set="i" t-value="1"  />
+                <t t-set="qty" t-value="0"  />
+                <t t-set="t_vat" t-value="0"  />
+                <t t-set="t_vat" t-value="0"  />
+                <t t-set="t_incl_vat" t-value="0"  />
+                <t t-set="t_excl_vat" t-value="0"  />
+                <t t-set="t_cost" t-value="0"  />
+                <t t-set="t_profit" t-value="0"  />
+                <tr t-foreach='lines' t-as='line'>
+                    <t t-set="internal_reference" t-value="line['product_bar'] and '[%s] ' % line['product_bar'] or ''" />
+                    <td><t t-span="i" /><t t-esc="i"/></td>
+                    <td><t t-esc="barcode" /><t t-esc="line['product_bar']" /></td>
+                    <td><t t-esc="product" /><t t-esc="line['product_name']" /></td>
+                    <td>
+                        <t t-esc="line['sum_qty']" />
+                        <t t-set="qty" t-value="qty+line['sum_qty']"/>
+
+                    </td>
+                    <td><t t-esc="line_taxes" /><t t-esc="line['sum_tax']" /></td>
+                    <td><t t-esc="sum_tax_price_tot" /><t t-esc="line['sum_tax_price_tot']" /></td>
+                    <t t-set="t_incl_vat" t-value="t_incl_vat+line['sum_tax_price_tot']"/>
+
+
+                    <td><t t-esc="vat_amnt" /><t t-esc="line['vat_amnt']" /></td>
+                    <t t-set="t_vat" t-value="t_vat+line['vat_amnt']"/>
+
+                    <td><t t-esc="sum_price_subtotal" /><t t-esc="line['sum_price_subtotal']" /></td>
+                    <t t-set="t_excl_vat" t-value="t_excl_vat+line['sum_price_subtotal']"/>
+
+                    <td><t t-esc="sum_product_cost" /><t t-esc="line['sum_product_cost']" /></td>
+                    <t t-set="t_cost" t-value="t_cost+line['sum_product_cost']"/>
+
+                    <td><t t-esc="profit" /><t t-esc="line['sum_profit']"/></td>
+                    <t t-set="t_profit" t-value="t_profit+line['sum_profit']"/>
+
+                    <t t-set="i" t-value="i+1"/>
+                </tr>
+                <tr class="border-black">
+                    <td class="text-center" colspan="3"> TOTAL </td>
+                    <td><t t-span="qty" /><t t-esc="qty"/></td>
+                    <td></td>
+                    <td><t t-span="t_incl_vat" /><t t-esc="t_incl_vat"/></td>
+                    <td><t t-span="t_vat" /><t t-esc="t_vat"/></td>
+                    <td><t t-span="t_excl_vat" /><t t-esc="t_excl_vat"/></td>
+                    <td><t t-span="t_cost" /><t t-esc="t_cost"/></td>
+                    <td><t t-span="t_profit" /><t t-esc="t_profit"/></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br/>
+
+            <h3>Payments</h3>
+            <table  class="table table-sm">
+                <thead><tr>
+                    <th>Name</th>
+                    <th>Total</th>
+                </tr></thead>
+                <tbody>
+                <tr t-foreach='payments' t-as='payment'>
+                    <td><t t-esc="payment['name']" /></td>
+                    <td><t t-esc="payment['total']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+
+            <h3>Taxes</h3>
+            <table  class="table table-sm">
+                <thead><tr>
+                    <th>Name</th>
+                    <th>Tax Amount</th>
+                    <th>Base Amount</th>
+                </tr></thead>
+                <tbody>
+                <tr t-foreach='taxes' t-as='tax'>
+                    <td><t t-esc="tax['name']" /></td>
+                    <td><t t-esc="tax['tax_amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    <td><t t-esc="tax['base_amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br/>
+            <br/>
+
+            <strong>Total: <t t-esc='total_paid' t-options="{'widget': 'float', 'precision': currency_precision}"/></strong>
+
+        </div>
+    </t>
+    </t>
+</template>
+</data>
+</odoo>

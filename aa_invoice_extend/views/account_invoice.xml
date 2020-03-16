@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_account_invoice_line_view">
+        <field name="name">account.move.line.tax.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_total']" position="after">
+                <field name="price_subtotal_tax"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_invoice_extended_view">
+        <field name="name">account.move.extend.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='narration']" position="before">
+                <field name="remarks" placeholder="Add a remark, It will be there in invoice printout..." nolabel="1" height="50"/>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']" position="after">
+                <page id="invoice_details" string="Despatch Details" name="invoice_details"
+                      attrs="{'invisible': [('type', '=', 'entry')]}">
+                    <group>
+                        <group string="References">
+                            <field name="supplier_ref"/>
+                            <field name="supplier_ref_date"/>
+                        </group>
+                        <group  string="Buyer Ref">
+                            <field name="buyer_order_no"/>
+                            <field name="buyer_order_date"/>
+                        </group>
+                        <group string="Delivery">
+                            <field name="dispatch_doc_no"/>
+                            <field name="dispatch_doc_date"/>
+                        </group>
+                        <group>
+                            <field name="dispatch_through"/>
+                            <field name="dispatch_destination"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

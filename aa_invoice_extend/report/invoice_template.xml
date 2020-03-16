@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="invoice_print_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style=" font-size: 12px;">
+                        <div>
+                            <table class="table table-bordered" width="100%">
+                                <tr>
+                                    <td rowspan="3" width="40%" style="text-align: justify;padding: 3px;">
+                                     <strong><span t-field="o.company_id"/></strong>
+                                     <span t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true}"/>
+                                     <t t-if="o.company_id.vat"><span>TRN</span> : <span t-field="o.company_id.vat" /></t>
+                                    </td>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Invoice No : </span>
+                                        <strong><span t-field="o.name"/></strong>
+
+                                    </td>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Date : </span>
+                                        <strong><span t-field="o.invoice_date"/></strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Delivery Note : </span>
+                                    </td>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Mode/Terms of Payment : </span>
+                                        <strong><span t-field="o.invoice_payment_term_id.name"/></strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Supplier Ref : </span>
+                                        <strong><span t-field="o.supplier_ref"/></strong>
+                                    </td>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Other Ref : <span t-field="o.ref"/></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4" width="40%" style="text-align: justify;padding: 3px;">
+                                        <strong><sapn>Customer</sapn></strong>
+                                        <strong><span t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/></strong>
+                                        <t t-if="o.partner_id.vat"><span>TRN</span> : <span t-field="o.partner_id.vat" /></t>
+                                    </td>
+                                    <td width="30%" style="text-align: justify;justify;padding: 2px;">
+                                        <span>Buyers Order No : </span><span t-field="o.buyer_order_no"/>
+                                    </td>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Dated : </span><span t-field="o.buyer_order_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Dispatch Doc No : </span><span t-field="o.dispatch_doc_no"/>
+                                    </td>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Delivery Note Date : </span><span t-field="o.dispatch_doc_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Dispatch Through : </span><span t-field="o.dispatch_through"/>
+                                    </td>
+                                    <td width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Destination : </span><span t-field="o.dispatch_destination"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" width="30%" style="text-align: justify;padding: 2px;">
+                                        <span>Terms of Delivery : </span><span t-field="o.dispatch_doc_no.note"/>
+                                        <br/>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="table table-bordered" width="100%">
+                                <tr>
+                                    <th style="padding: 2px;" class="text-center" width="5%">No</th>
+                                    <th style="padding: 2px;" class="text-center" width="10%">Barcode</th>
+                                    <th style="padding: 2px;" class="text-center" width="20%">Description</th>
+                                    <th style="padding: 2px;" class="text-center" width="7%">Qty</th>
+                                    <th style="padding: 2px;" class="text-center" width="5%">Rate</th>
+                                    <th style="padding: 2px;" class="text-center" width="5%">Per</th>
+                                    <th style="padding: 2px;" class="text-center" width="10%">Amount</th>
+                                    <th style="padding: 2px;" class="text-center" width="14%">Vat</th>
+                                    <th style="padding: 2px;" class="text-center" width="14%">Vat A</th>
+                                    <th style="padding: 2px;" class="text-center" width="20%">Vat Incl Amt</th>
+
+                                </tr>
+                                <t t-set="sl_no" t-value="1"/>
+                                <t t-set="qty" t-value="0"/>
+                                <t t-set="t_excl_vat" t-value="0"  />
+                                <t t-set="t_vat" t-value="0"  />
+                                <t t-set="t_incl_vat" t-value="0"  />
+                                <tr t-foreach="o.invoice_line_ids" t-as="line">
+                                    <t t-set="bucket_var" t-value="0"  />
+                                    <td style="padding: 2px;" class="text-center"><span t-esc="sl_no"/></td>
+                                    <td style="padding: 2px;"><span t-field="line.product_id.barcode"/></td>
+                                    <td style="padding: 2px;"><span t-field="line.name"/></td>
+                                    <td style="padding: 2px;" class="text-center"><span t-field="line.quantity"/></td>
+                                    <td style="padding: 2px;" class="text-right"><span t-field="line.price_unit"/></td>
+                                    <td style="padding: 2px;" class="text-center"><span t-field="line.product_uom_id.name"/></td>
+                                    <td style="padding: 2px;" class="text-right"><span t-field="line.price_subtotal"/></td>
+                                    <td style="padding: 2px;" class="text-center">
+                                      <span t-esc="', '.join(map(lambda x: x.description or x.name, line.tax_ids))"/>
+                                    </td>
+                                    <td style="padding: 2px;" class="text-right"><span t-field="o.currency_id.symbol"/><span t-esc="line.price_subtotal_tax - line.price_subtotal" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <t t-set="bucket_var" t-value="line.price_subtotal_tax - line.price_subtotal"/>
+
+                                    <td style="padding: 2px;" class="text-right"><span t-field="o.currency_id.symbol"/><span t-field="line.price_subtotal_tax"/></td>
+
+                                        <t t-set="sl_no" t-value="sl_no + 1"/>
+                                        <t t-set="qty" t-value="qty + line.quantity"/>
+                                        <t t-set="t_excl_vat" t-value="t_excl_vat + line.price_subtotal"/>
+                                        <t t-set="t_vat" t-value="t_vat + bucket_var"/>
+                                        <t t-set="t_incl_vat" t-value="t_incl_vat + line.price_subtotal_tax"/>
+                                </tr>
+
+                                <tr class="border-black" style="font-weight:bold;">
+                                    <td class="text-center" colspan="3"> Total </td>
+                                    <td><t t-span="qty" /><t t-esc="qty"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><t t-span="t_excl_vat" /><t t-esc="t_excl_vat"/></td>
+                                    <td></td>
+                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><t t-span="t_vat" /><t t-esc="t_vat" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><t t-span="t_incl_vat" /><t t-esc="t_incl_vat"/></td>
+                                </tr>
+<!--                            </table>-->
+
+<!--                            <table class="table table-bordered" width="100%">-->
+                                <tr>
+                                  <td style="padding: 2px;" colspan="12">
+                                    Amount Chargeable(in words) :
+                                    <strong><span t-esc="o.currency_id.amount_to_text(o.amount_total)"/> Only</strong>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="padding: 2px;" colspan="12">
+                                    Total Output of VAT :
+                                    <span t-esc="o.amount_total - o.amount_untaxed" t-options='{"widget": "float", "precision": 2}'/>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td style="padding: 2px;" colspan="12">
+                                      Remarks : <br/>
+                                      <span t-field="o.remarks"/>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td style="padding: 2px;" colspan="12">
+                                      Declaration: We declare that this Invoice shows the actual price of the goods described and that all particulars are true and correct. <br/>
+                                  </td>
+                                </tr>
+                            </table>
+
+                            <table width="100%">
+                                <tr>
+                                    <th rowspan="1" colspan="3" style="border:1px solid;text-align:center;"><b>Customer's Seal and Signature</b></th>
+                                    <th rowspan="1" colspan="9" style="border:1px solid;text-align:center;"><b>For Farhan Perfumes</b></th>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid white;"></td>
+                                    <td colspan="3" style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;" class="text-center"> Prepared by </td>
+                                    <td colspan="3" style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;" class="text-center"> Verified By </td>
+                                    <td colspan="3" style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;" class="text-center"> Authorized Signatory </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;height:70px;"><br/></td>
+                                    <td colspan="9" style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;"/>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

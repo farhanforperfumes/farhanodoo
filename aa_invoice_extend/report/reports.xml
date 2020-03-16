@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        string="Customer Invoice(VAT)"
+        id="invoice_print_vat"
+        model="account.move"
+        report_type="qweb-pdf"
+        name="aa_invoice_extend.invoice_print_template"
+        file="aa_invoice_extend.invoice_print_template"
+        multi="False"
+        print_report_name=" (object.type in ('in_invoice') and 'Vendor Bill - %s' % (object.name) or
+            'Customer Invoice - %s' % (object.name))"
+    />
+</odoo>

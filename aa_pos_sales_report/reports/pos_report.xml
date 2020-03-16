@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="aa_sale_profit_report" model="ir.actions.report">
+            <field name="name">POS Profit Report</field>
+            <field name="model">report.aa_pos_sales_report.report_profit_saledetails</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">aa_pos_sales_report.report_profit_saledetails</field>
+        </record>
+    </data>
+
+</odoo>
