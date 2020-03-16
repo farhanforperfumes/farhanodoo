@@ -89,7 +89,7 @@
                                     <th style="padding: 2px;" class="text-center" width="5%">Per</th>
                                     <th style="padding: 2px;" class="text-center" width="10%">Amount</th>
                                     <th style="padding: 2px;" class="text-center" width="14%">Vat</th>
-                                    <th style="padding: 2px;" class="text-center" width="14%">Vat A</th>
+                                    <th style="padding: 2px;" class="text-center" width="14%">Vat Amt</th>
                                     <th style="padding: 2px;" class="text-center" width="20%">Vat Incl Amt</th>
 
                                 </tr>
