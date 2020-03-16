@@ -4,7 +4,7 @@
 <template id="report_profit_saledetails">
     <t t-call="web.html_container">
     <t t-call="web.internal_layout">
-        <div class="page">
+        <div class="page" style=" font-size: 11px;">
 
             <div class="text-center">
                 <h2>Farhan Perfumes Sales Profit Report</h2>
@@ -15,12 +15,12 @@
 
             <!-- Order lines -->
             <h3>Products</h3>
-            <table  class="table table-sm">
-                <thead><tr>
+            <table  class="table table-bordered">
+                <thead><tr class="text-center">
                     <th>SL</th>
                     <th>Barcode</th>
                     <th>Product</th>
-                    <th>Quantity</th>
+                    <th>Qtr</th>
                     <th>VAT</th>
                     <th>Amt Incl VAT</th>
                     <th>VAT Amt</th>
@@ -28,8 +28,8 @@
                     <th>Cost</th>
                     <th>Profit</th>
                 </tr></thead>
-                <tbody>
 
+                <tbody>
                 <t t-set="i" t-value="1"  />
                 <t t-set="qty" t-value="0"  />
                 <t t-set="t_vat" t-value="0"  />
@@ -40,42 +40,42 @@
                 <t t-set="t_profit" t-value="0"  />
                 <tr t-foreach='lines' t-as='line'>
                     <t t-set="internal_reference" t-value="line['product_bar'] and '[%s] ' % line['product_bar'] or ''" />
-                    <td><t t-span="i" /><t t-esc="i"/></td>
-                    <td><t t-esc="barcode" /><t t-esc="line['product_bar']" /></td>
-                    <td><t t-esc="product" /><t t-esc="line['product_name']" /></td>
-                    <td>
+                    <td class="text-center"><t t-span="i" /><t t-esc="i"/></td>
+                    <td class="text-center"><t t-esc="barcode" /><t t-esc="line['product_bar']" /></td>
+                    <td class="text-center"><t t-esc="product" /><t t-esc="line['product_name']" /></td>
+                    <td class="text-center">
                         <t t-esc="line['sum_qty']" />
                         <t t-set="qty" t-value="qty+line['sum_qty']"/>
 
                     </td>
-                    <td><t t-esc="line_taxes" /><t t-esc="line['sum_tax']" /></td>
-                    <td><t t-esc="sum_tax_price_tot" /><t t-esc="line['sum_tax_price_tot']" /></td>
+                    <td class="text-left"><t t-esc="line_taxes" /><t t-esc="line['sum_tax']" /></td>
+                    <td class="text-right"><t t-esc="sum_tax_price_tot" /><t t-esc="line['sum_tax_price_tot']" t-options='{"widget": "float", "precision": 2}'/></td>
                     <t t-set="t_incl_vat" t-value="t_incl_vat+line['sum_tax_price_tot']"/>
 
 
-                    <td><t t-esc="vat_amnt" /><t t-esc="line['vat_amnt']" /></td>
+                    <td class="text-right"><t t-esc="vat_amnt" /><t t-esc="line['vat_amnt']" t-options='{"widget": "float", "precision": 2}'/></td>
                     <t t-set="t_vat" t-value="t_vat+line['vat_amnt']"/>
 
-                    <td><t t-esc="sum_price_subtotal" /><t t-esc="line['sum_price_subtotal']" /></td>
+                    <td class="text-right"><t t-esc="sum_price_subtotal" /><t t-esc="line['sum_price_subtotal']" t-options='{"widget": "float", "precision": 2}'/></td>
                     <t t-set="t_excl_vat" t-value="t_excl_vat+line['sum_price_subtotal']"/>
 
-                    <td><t t-esc="sum_product_cost" /><t t-esc="line['sum_product_cost']" /></td>
+                    <td class="text-right"><t t-esc="sum_product_cost" /><t t-esc="line['sum_product_cost']" t-options='{"widget": "float", "precision": 2}'/></td>
                     <t t-set="t_cost" t-value="t_cost+line['sum_product_cost']"/>
 
-                    <td><t t-esc="profit" /><t t-esc="line['sum_profit']"/></td>
+                    <td class="text-right"><t t-esc="profit" /><t t-esc="line['sum_profit']" t-options='{"widget": "float", "precision": 2}'/></td>
                     <t t-set="t_profit" t-value="t_profit+line['sum_profit']"/>
 
                     <t t-set="i" t-value="i+1"/>
                 </tr>
-                <tr class="border-black">
+                <tr class="border-black" style="font-weight:bold;">
                     <td class="text-center" colspan="3"> TOTAL </td>
-                    <td><t t-span="qty" /><t t-esc="qty"/></td>
+                    <td class="text-right"><t t-span="qty" /><t t-esc="qty"/></td>
                     <td></td>
-                    <td><t t-span="t_incl_vat" /><t t-esc="t_incl_vat"/></td>
-                    <td><t t-span="t_vat" /><t t-esc="t_vat"/></td>
-                    <td><t t-span="t_excl_vat" /><t t-esc="t_excl_vat"/></td>
-                    <td><t t-span="t_cost" /><t t-esc="t_cost"/></td>
-                    <td><t t-span="t_profit" /><t t-esc="t_profit"/></td>
+                    <td class="text-right"><t t-span="t_incl_vat" /><t t-esc="t_incl_vat" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-span="t_vat" /><t t-esc="t_vat" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-span="t_excl_vat" /><t t-esc="t_excl_vat" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-span="t_cost" /><t t-esc="t_cost" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-span="t_profit" /><t t-esc="t_profit" t-options='{"widget": "float", "precision": 2}'/></td>
                 </tr>
                 </tbody>
             </table>
