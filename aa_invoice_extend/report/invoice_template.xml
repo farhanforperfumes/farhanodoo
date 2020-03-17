@@ -86,14 +86,14 @@
                                 <tr>
                                     <th style="padding: 2px;" class="text-center" width="4%">No</th>
                                     <th style="padding: 2px;" class="text-center" width="12%">Barcode</th>
-                                    <th style="padding: 2px;" class="text-center" width="20%">Description</th>
+                                    <th style="padding: 2px;" class="text-center" width="24%">Description</th>
                                     <th style="padding: 2px;" class="text-center" width="5%">Qty</th>
                                     <th style="padding: 2px;" class="text-center" width="8%">Rate</th>
                                     <th style="padding: 2px;" class="text-center" width="5%">Per</th>
                                     <th style="padding: 2px;" class="text-center" width="10%">Amount</th>
                                     <th style="padding: 2px;" class="text-center" width="9%">VAT</th>
                                     <th style="padding: 2px;" class="text-center" width="10%">VAT Amt</th>
-                                    <th style="padding: 2px;" class="text-center" width="17%">VAT Incl Amt</th>
+                                    <th style="padding: 2px;" class="text-center" width="13%">VAT Incl Amt</th>
                                 </tr>
                                 <t t-set="sl_no" t-value="1"/>
                                 <t t-set="qty" t-value="0"/>
@@ -126,13 +126,13 @@
 
                                 <tr class="border-black" style="font-weight:bold;">
                                     <td class="text-center" colspan="3"> Total </td>
-                                    <td><t t-span="qty" /><t t-esc="qty"/></td>
+                                    <td><t t-span="qty" /><t t-esc="int(qty)"/></td>
                                     <td></td>
                                     <td></td>
-                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><t t-span="t_excl_vat" /><t t-esc="t_excl_vat"/></td>
+                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><span> </span><t t-span="t_excl_vat" /><t t-esc="t_excl_vat"/></td>
                                     <td></td>
-                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><t t-span="t_vat" /><t t-esc="t_vat" t-options='{"widget": "float", "precision": currency_precision}'/></td>
-                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><t t-span="t_incl_vat" /><t t-esc="t_incl_vat"/></td>
+                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><span> </span><t t-span="t_vat" /><t t-esc="t_vat" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                                    <td class="text-right"><span t-field="o.currency_id.symbol"/><span> </span><t t-span="t_incl_vat" /><t t-esc="t_incl_vat"/></td>
                                 </tr>
 <!--                            </table>-->
 
