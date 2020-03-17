@@ -38,7 +38,8 @@
                                         <strong><span t-field="o.supplier_ref"/></strong>
                                     </td>
                                     <td width="30%" style="text-align: justify;padding: 2px;">
-                                        <strong><span>Other Ref : <span t-field="o.invoice_origin"/></span></strong>
+                                        <span>Other Ref : </span>
+                                        <strong><span t-field="o.invoice_origin"/></strong>
                                     </td>
                                 </tr>
                                 <tr>
