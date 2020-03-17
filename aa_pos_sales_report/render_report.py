@@ -125,7 +125,7 @@ class POSSalesProfitReport(models.AbstractModel):
         if lines_list:
             self.env.cr.execute("""
                                             SELECT line.id,line.product_id,line.qty,line.price_unit,line.discount,
-                                            line.price_subtotal, ROUND(line.price_subtotal_incl, 2 ) AS tax_price_tot
+                                            line.price_subtotal, ROUND(line.price_subtotal_incl, 3 ) AS tax_price_tot
                                             FROM pos_order_line AS line
                                             WHERE line.id IN %s
                                         """, (tuple(lines_list),))

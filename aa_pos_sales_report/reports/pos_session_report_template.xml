@@ -20,7 +20,7 @@
                     <th>SL</th>
                     <th>Barcode</th>
                     <th>Product</th>
-                    <th>Qtr</th>
+                    <th>Qty</th>
                     <th>VAT</th>
                     <th>Amt Incl VAT</th>
                     <th>VAT Amt</th>
@@ -49,20 +49,20 @@
 
                     </td>
                     <td class="text-left"><t t-esc="line_taxes" /><t t-esc="line['sum_tax']" /></td>
-                    <td class="text-right"><t t-esc="sum_tax_price_tot" /><t t-esc="line['sum_tax_price_tot']" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-esc="sum_tax_price_tot" /><t t-esc="line['sum_tax_price_tot']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
                     <t t-set="t_incl_vat" t-value="t_incl_vat+line['sum_tax_price_tot']"/>
 
 
-                    <td class="text-right"><t t-esc="vat_amnt" /><t t-esc="line['vat_amnt']" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-esc="vat_amnt" /><t t-esc="line['vat_amnt']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
                     <t t-set="t_vat" t-value="t_vat+line['vat_amnt']"/>
 
-                    <td class="text-right"><t t-esc="sum_price_subtotal" /><t t-esc="line['sum_price_subtotal']" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-esc="sum_price_subtotal" /><t t-esc="line['sum_price_subtotal']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
                     <t t-set="t_excl_vat" t-value="t_excl_vat+line['sum_price_subtotal']"/>
 
-                    <td class="text-right"><t t-esc="sum_product_cost" /><t t-esc="line['sum_product_cost']" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-esc="sum_product_cost" /><t t-esc="line['sum_product_cost']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
                     <t t-set="t_cost" t-value="t_cost+line['sum_product_cost']"/>
 
-                    <td class="text-right"><t t-esc="profit" /><t t-esc="line['sum_profit']" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-esc="profit" /><t t-esc="line['sum_profit']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
                     <t t-set="t_profit" t-value="t_profit+line['sum_profit']"/>
 
                     <t t-set="i" t-value="i+1"/>
@@ -71,11 +71,11 @@
                     <td class="text-center" colspan="3"> TOTAL </td>
                     <td class="text-right"><t t-span="qty" /><t t-esc="qty"/></td>
                     <td></td>
-                    <td class="text-right"><t t-span="t_incl_vat" /><t t-esc="t_incl_vat" t-options='{"widget": "float", "precision": 2}'/></td>
-                    <td class="text-right"><t t-span="t_vat" /><t t-esc="t_vat" t-options='{"widget": "float", "precision": 2}'/></td>
-                    <td class="text-right"><t t-span="t_excl_vat" /><t t-esc="t_excl_vat" t-options='{"widget": "float", "precision": 2}'/></td>
-                    <td class="text-right"><t t-span="t_cost" /><t t-esc="t_cost" t-options='{"widget": "float", "precision": 2}'/></td>
-                    <td class="text-right"><t t-span="t_profit" /><t t-esc="t_profit" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td class="text-right"><t t-span="t_incl_vat" /><t t-esc="t_incl_vat" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-span="t_vat" /><t t-esc="t_vat" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-span="t_excl_vat" /><t t-esc="t_excl_vat" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-span="t_cost" /><t t-esc="t_cost" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-span="t_profit" /><t t-esc="t_profit" t-options='{"widget": "float", "precision": currency_precision}'/></td>
                 </tr>
                 </tbody>
             </table>
