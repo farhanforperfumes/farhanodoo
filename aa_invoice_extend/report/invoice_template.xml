@@ -91,11 +91,11 @@
                                     <th style="padding: 2px;" class="text-center" width="4%">No</th>
                                     <th style="padding: 2px;" class="text-center" width="12%">Barcode</th>
                                     <th style="padding: 2px;" class="text-center" width="24%">Description</th>
-                                    <th style="padding: 2px;" class="text-center" width="5%">Qty</th>
+                                    <th style="padding: 2px;" class="text-center" width="4%">Qty</th>
                                     <th style="padding: 2px;" class="text-center" width="8%">Rate</th>
                                     <th style="padding: 2px;" class="text-center" width="5%">Per</th>
-                                    <th style="padding: 2px;" class="text-center" width="10%">Amount</th>
-                                    <th style="padding: 2px;" class="text-center" width="9%">VAT</th>
+                                    <th style="padding: 2px;" class="text-center" width="13%">Amount</th>
+                                    <th style="padding: 2px;" class="text-center" width="7%">VAT</th>
                                     <th style="padding: 2px;" class="text-center" width="10%">VAT Amt</th>
                                     <th style="padding: 2px;" class="text-center" width="13%">VAT Incl Amt</th>
                                 </tr>
@@ -192,3 +192,4 @@
         </t>
     </template>
 </odoo>
+
