@@ -44,38 +44,38 @@
                     <td class="text-center"><t t-esc="barcode" /><t t-esc="line['product_bar']" /></td>
                     <td class="text-center"><t t-esc="product" /><t t-esc="line['product_name']" /></td>
                     <td class="text-center">
-                        <t t-esc="line['sum_qty']" />
+                        <t t-esc="int(line['sum_qty'])" />
                         <t t-set="qty" t-value="qty+line['sum_qty']"/>
 
                     </td>
                     <td class="text-left"><t t-esc="line_taxes" /><t t-esc="line['sum_tax']" /></td>
-                    <td class="text-right"><t t-esc="sum_tax_price_tot" /><t t-esc="line['sum_tax_price_tot']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-esc="sum_tax_price_tot" /><t t-esc="line['sum_tax_price_tot']" t-options='{"widget": "float", "precision": 3}'/></td>
                     <t t-set="t_incl_vat" t-value="t_incl_vat+line['sum_tax_price_tot']"/>
 
 
-                    <td class="text-right"><t t-esc="vat_amnt" /><t t-esc="line['vat_amnt']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-esc="vat_amnt" /><t t-esc="line['vat_amnt']" t-options='{"widget": "float", "precision": 3}'/></td>
                     <t t-set="t_vat" t-value="t_vat+line['vat_amnt']"/>
 
-                    <td class="text-right"><t t-esc="sum_price_subtotal" /><t t-esc="line['sum_price_subtotal']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-esc="sum_price_subtotal" /><t t-esc="line['sum_price_subtotal']" t-options='{"widget": "float", "precision": 3}'/></td>
                     <t t-set="t_excl_vat" t-value="t_excl_vat+line['sum_price_subtotal']"/>
 
-                    <td class="text-right"><t t-esc="sum_product_cost" /><t t-esc="line['sum_product_cost']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-esc="sum_product_cost" /><t t-esc="line['sum_product_cost']" t-options='{"widget": "float", "precision": 3}'/></td>
                     <t t-set="t_cost" t-value="t_cost+line['sum_product_cost']"/>
 
-                    <td class="text-right"><t t-esc="profit" /><t t-esc="line['sum_profit']" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-esc="profit" /><t t-esc="line['sum_profit']" t-options='{"widget": "float", "precision": 3}'/></td>
                     <t t-set="t_profit" t-value="t_profit+line['sum_profit']"/>
 
                     <t t-set="i" t-value="i+1"/>
                 </tr>
                 <tr class="border-black" style="font-weight:bold;">
                     <td class="text-center" colspan="3"> TOTAL </td>
-                    <td class="text-right"><t t-span="qty" /><t t-esc="qty"/></td>
+                    <td class="text-right"><t t-span="qty" /><t t-esc="int(qty)"/></td>
                     <td></td>
-                    <td class="text-right"><t t-span="t_incl_vat" /><t t-esc="t_incl_vat" t-options='{"widget": "float", "precision": currency_precision}'/></td>
-                    <td class="text-right"><t t-span="t_vat" /><t t-esc="t_vat" t-options='{"widget": "float", "precision": currency_precision}'/></td>
-                    <td class="text-right"><t t-span="t_excl_vat" /><t t-esc="t_excl_vat" t-options='{"widget": "float", "precision": currency_precision}'/></td>
-                    <td class="text-right"><t t-span="t_cost" /><t t-esc="t_cost" t-options='{"widget": "float", "precision": currency_precision}'/></td>
-                    <td class="text-right"><t t-span="t_profit" /><t t-esc="t_profit" t-options='{"widget": "float", "precision": currency_precision}'/></td>
+                    <td class="text-right"><t t-span="t_incl_vat" /><t t-esc="t_incl_vat" t-options='{"widget": "float", "precision": 3}'/></td>
+                    <td class="text-right"><t t-span="t_vat" /><t t-esc="t_vat" t-options='{"widget": "float", "precision": 3}'/></td>
+                    <td class="text-right"><t t-span="t_excl_vat" /><t t-esc="t_excl_vat" t-options='{"widget": "float", "precision": 3}'/></td>
+                    <td class="text-right"><t t-span="t_cost" /><t t-esc="t_cost" t-options='{"widget": "float", "precision": 3}'/></td>
+                    <td class="text-right"><t t-span="t_profit" /><t t-esc="t_profit" t-options='{"widget": "float", "precision": 3}'/></td>
                 </tr>
                 </tbody>
             </table>
@@ -91,7 +91,7 @@
                 <tbody>
                 <tr t-foreach='payments' t-as='payment'>
                     <td><t t-esc="payment['name']" /></td>
-                    <td><t t-esc="payment['total']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    <td><t t-esc="payment['total']" t-options="{'widget': 'float', 'precision': 3}"/></td>
                 </tr>
                 </tbody>
             </table>
@@ -107,8 +107,8 @@
                 <tbody>
                 <tr t-foreach='taxes' t-as='tax'>
                     <td><t t-esc="tax['name']" /></td>
-                    <td><t t-esc="tax['tax_amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
-                    <td><t t-esc="tax['base_amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    <td><t t-esc="tax['tax_amount']" t-options="{'widget': 'float', 'precision': 3}"/></td>
+                    <td><t t-esc="tax['base_amount']" t-options="{'widget': 'float', 'precision': 3}"/></td>
                 </tr>
                 </tbody>
             </table>
@@ -116,7 +116,7 @@
             <br/>
             <br/>
 
-            <strong>Total: <t t-esc='total_paid' t-options="{'widget': 'float', 'precision': currency_precision}"/></strong>
+            <strong>Total: <t t-esc='total_paid' t-options="{'widget': 'float', 'precision': 3}"/></strong>
 
         </div>
     </t>
